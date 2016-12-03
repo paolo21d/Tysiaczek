@@ -113,7 +113,11 @@
     <ClInclude Include="includes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Karta.cpp" />
+    <ClCompile Include="Komputer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Plansza.cpp" />
+    <ClCompile Include="Uzytkownik.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
