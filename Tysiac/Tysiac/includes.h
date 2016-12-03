@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <string>
 #include <algorithm>
+#include <iostream>
+
 class Karta
 {
 	int numer;
