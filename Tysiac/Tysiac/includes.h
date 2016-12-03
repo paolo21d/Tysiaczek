@@ -7,5 +7,7 @@ class Karta
 {
 	int numer;
 	int kolor;
-	//kolor: 
+	//kolor: 1-trefl(zoladz) ,2-karo(dzwonek), 3-kier(serce), 4-pik(wino)
+	void losuj(int graczy);
+	void cos();
 };
