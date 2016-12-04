@@ -1,4 +1,6 @@
 #include "includes.h"
+#include <iostream>
+#include <cstdio>
 
 int main()
 {
