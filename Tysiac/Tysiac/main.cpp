@@ -15,8 +15,8 @@ void inicjalizuj_karty()
 		for (int j = 1; j <= 4; j++, id++)
 		{
 			kar.id = id;
-			kar.figura = j;
-			kar.kolor = i;
+			kar.figura = i;
+			kar.kolor = j;
 			talia.push_back(kar);
 		}
 		//talia.push_back()
