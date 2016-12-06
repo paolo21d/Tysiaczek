@@ -23,6 +23,7 @@ int main()
 	srand(time(NULL));
 
 	Plansza plansza;
-
+	int x;
+	std::cin >> x;
 	return 0;
 }

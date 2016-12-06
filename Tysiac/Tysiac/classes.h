@@ -17,6 +17,7 @@ public:
 	int wylicytowane;
 	int punkty_w_partii;
 	int wynik;
+	//////////////////////////////
 	virtual int melduj() = 0;
 	virtual Karta wybierz() = 0;
 	virtual int licytuj() = 0;

@@ -41,9 +41,9 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 {
 	/************************
 	Struktura pliku od zapisu
-	1. Data
+	1. Data (mm/dd/rr GG:MM:SS
 	2. liczba graczy
-	3. opis graczy - id, Typ(U-uzytkownik/K-komputer), nazwa - w nastpenych wierszach
+	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa - w nastpenych wierszach
 	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
 	************************/
 
@@ -62,7 +62,6 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 
 
 	/*Ad 3. OPIS GRACZY*/
-
 	plik << ile_graczy<<std::endl;
 	for (int i = 0; i < ile_graczy; i++)
 	{
@@ -80,5 +79,30 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 }
 void Plansza::wczytaj_gre()
 {
-
+	/************************
+	Struktura pliku od zapisu
+	1. Data (mm/dd/rr GG:MM:SS
+	2. liczba graczy
+	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa - w nastpenych wierszach
+	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
+	************************/
+	std::string data, help;
+	plik >> data;
+	plik >> help;
+	data = data + " " + help; // data ostatniego zapisu
+	int ile; // ilosc graczy
+	plik >> ile;
+	std::vector <Gracz*> g;
+	int id, t, n;
+	Gracz* obiekt;
+	for (int i = 0; i < ile; i++) ///////////poprawiæ wczytywanie z pliku t¹ pêtlê
+	{
+		plik >> id >> t >> n;
+		/*obiekt->id_gracza = id;
+		obiekt->typ_gracza = t;
+		obiekt->nazwa = n;
+		g.push_back(obiekt); // id, typ gracza, nazwa gracza*/
+	}
+	int zaczynajacy;
+	plik >> zaczynajacy; // osoba zaczynajaca
 }
