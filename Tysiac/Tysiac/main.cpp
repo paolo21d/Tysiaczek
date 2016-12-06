@@ -20,6 +20,7 @@ void inicjalizuj_karty()
 }
 int main()
 {
+	srand(time(NULL));
 
 
 

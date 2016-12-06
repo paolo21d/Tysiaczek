@@ -9,8 +9,10 @@ public:
 };
 class Gracz //nie potrzebny plik .cpp
 {
-protected:
-	std::vector <Karta> karty;
+public:
+	std::vector <Karta> karty_w_rece;
+	std::string nazwa;
+	int typ_gracza; //0-komputer, 1-czlowiek
 	int id_gracza;
 	int wylicytowane;
 	int punkty_w_partii;
@@ -41,7 +43,7 @@ public:
 	~Plansza(); //destruktor
 	int get_ilosc_graczy();
 	int get_meldunek();
-	void tasuj();
+	void tasuj(std::vector <Karta>);
 	void rozdaj(int ile);
 	void zapisz_gre();
 	void wczytaj_gre();
