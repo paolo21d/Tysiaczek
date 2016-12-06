@@ -3,9 +3,10 @@
 Plansza::Plansza()
 {
 	//otworzenie pliku z zapisami
-	plik.open("dane_gry.txt");
+	plik.open("dane_gry.txt", std::ios::in | std::ios::out);
 	if (!plik.good()) //nie udalo sie otworzyc pliku
 	{
+		std::cout << "NIE UDALO SIE OTWORZYC PLIKU" <<std::endl;
 
 	}
 }
@@ -43,20 +44,27 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	1. Data
 	2. liczba graczy
 	3. opis graczy - id, Typ(U-uzytkownik/K-komputer), nazwa - w nastpenych wierszach
-	4. 
-	5. Talia gracza 1 ... - w nastpnych wierszach
+	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
 	************************/
-	//int rok, miesiac, dzien, godzina, minuta;
-	time_t czas;
-	time(&czas);
-	struct tm *a;
-	//a = localtime(&czas);
-	//plik << asctime(a); //Taka forma daty:     Tue Dec 06 19:23:19 2016
 
+
+	/*Ad 1. DATA*/
+	char buffer[64];
+	time_t my_time;
+	tm my_timeTM;
+
+	time(&my_time); //pobranie obecnego czasu
+	localtime_s(&my_timeTM, &my_time); //konwersja i zamiana na strefe lokalna
+	strftime(buffer, sizeof(buffer), "%d/%m/%y %H:%M:%S", &my_timeTM); //zapis do stringa
+
+	std::cout << "Save gry z: " << buffer << std::endl; //wypisanie
 	
-	//plik << rok << "-" << miesiac << "-" << dzien << " " << godzina << "-" << minuta<<std::endl;
+
+
+	/*Ad 3. OPIS GRACZY*/
+
 	plik << ile_graczy<<std::endl;
-	for (int i = 0; i < ile_graczy; i++) // Ad 3 - opis graczy
+	for (int i = 0; i < ile_graczy; i++)
 	{
 		if (gracze[i]->typ_gracza == 0) //komputer 
 		{
@@ -68,13 +76,7 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 		}
 	}
 
-	for (int i = 0; i < ile_graczy; i++) // Ad 5 - wypisywanie talii graczy
-	{
-		for (int j = 0; j < gracze[i]->karty_w_rece.size(); j++)
-		{
-			plik << gracze[i]->karty_w_rece[j].figura << " " <<gracze[i]->karty_w_rece[j].kolor << " ";
-		}
-	}
+
 }
 void Plansza::wczytaj_gre()
 {

@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <cstdio>
 #include <string>
 #include <algorithm>
@@ -8,5 +7,5 @@
 #include <vector>
 #include <fstream>
 #include <conio.h>
-#include <time.h>
+#include <ctime>
 #include <string>

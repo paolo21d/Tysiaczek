@@ -22,11 +22,7 @@ int main()
 {
 	srand(time(NULL));
 
-
-
-
-
-
+	Plansza plansza;
 
 	return 0;
 }
