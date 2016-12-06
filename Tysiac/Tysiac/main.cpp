@@ -1,7 +1,4 @@
 #include "includes.h"
-#include <iostream>
-#include <cstdio>
-#include <vector>
 
 std::vector <Karta> talia;
 void inicjalizuj_karty()
@@ -19,7 +16,6 @@ void inicjalizuj_karty()
 			kar.kolor = j;
 			talia.push_back(kar);
 		}
-		//talia.push_back()
 	}
 }
 int main()

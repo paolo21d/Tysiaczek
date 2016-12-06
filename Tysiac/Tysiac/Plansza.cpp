@@ -1,7 +1,5 @@
 #include "includes.h"
-#include <iostream>
-#include <cstdio>
-#include <fstream>
+
 Plansza::Plansza()
 {
 	//otworzenie pliku z zapisami
