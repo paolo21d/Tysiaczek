@@ -1,5 +1,5 @@
 #include "includes.h"
-
+#include "classes.h"
 std::vector <Karta> talia;
 void inicjalizuj_karty()
 {

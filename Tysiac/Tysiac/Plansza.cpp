@@ -1,5 +1,5 @@
 #include "includes.h"
-
+#include "classes.h"
 Plansza::Plansza()
 {
 	//otworzenie pliku z zapisami
