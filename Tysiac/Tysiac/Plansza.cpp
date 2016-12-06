@@ -20,6 +20,10 @@ int Plansza::get_ilosc_graczy()
 {
 	return ile_graczy;
 }
+int Plansza::get_meldunek()
+{
+	return meldunek;
+}
 void Plansza::tasuj()
 {
 
@@ -28,9 +32,9 @@ void Plansza::rozdaj(int ile)
 {
 
 }
-void Plansza::zapisz_gre()
+void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepne, czy nadpisujemy
 {
-
+	
 }
 void Plansza::wczytaj_gre()
 {
