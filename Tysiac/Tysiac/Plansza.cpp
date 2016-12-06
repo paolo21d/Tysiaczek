@@ -52,7 +52,7 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	struct tm *a;
 	//a = localtime(&czas);
 	//plik << asctime(a); //Taka forma daty:     Tue Dec 06 19:23:19 2016
-	
+
 	
 	//plik << rok << "-" << miesiac << "-" << dzien << " " << godzina << "-" << minuta<<std::endl;
 	plik << ile_graczy<<std::endl;
