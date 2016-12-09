@@ -3,11 +3,17 @@
 Plansza::Plansza()
 {
 	//otworzenie pliku z zapisami
+	plik.open("dane_gry.txt", std::ios::out);
+	plik.close();
 	plik.open("dane_gry.txt", std::ios::in | std::ios::out);
 	if (!plik.good()) //nie udalo sie otworzyc pliku
 	{
 		std::cout << "NIE UDALO SIE OTWORZYC PLIKU" <<std::endl;
 
+	}
+	else
+	{
+		std::cout << "UDALO SIE OTWORZYC PLIK" << std::endl;
 	}
 }
 Plansza::~Plansza()
@@ -23,7 +29,7 @@ int Plansza::get_meldunek()
 {
 	return meldunek;
 }
-void Plansza::tasuj(std::vector <Karta> t) // jeszcze jakis zwrocic ta potasowana talie
+void Plansza::tasuj(std::vector <Karta> t) // jeszcze jakos zwrocic ta potasowana talie
 {
 	int k;
 	for (int i = 0; i < t.size(); i++)
@@ -35,7 +41,10 @@ void Plansza::tasuj(std::vector <Karta> t) // jeszcze jakis zwrocic ta potasowan
 }
 void Plansza::rozdaj(int ile)
 {
-
+	for (int i = 0; i <= 2; i++)
+	{
+		//kupka.push_back(talia[i]);
+	}
 }
 void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepne, czy nadpisujemy
 {
@@ -47,7 +56,6 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
 	************************/
 
-
 	/*Ad 1. DATA*/
 	char buffer[64];
 	time_t my_time;
@@ -56,10 +64,9 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	time(&my_time); //pobranie obecnego czasu
 	localtime_s(&my_timeTM, &my_time); //konwersja i zamiana na strefe lokalna
 	strftime(buffer, sizeof(buffer), "%d/%m/%y %H:%M:%S", &my_timeTM); //zapis do stringa
-
+	plik << buffer << std::endl;
 	std::cout << "Save gry z: " << buffer << std::endl; //wypisanie
 	
-
 
 	/*Ad 3. OPIS GRACZY*/
 	plik << ile_graczy<<std::endl;

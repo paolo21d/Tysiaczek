@@ -1,5 +1,6 @@
 #pragma once
 #include "includes.h"
+
 class Karta // nie potrzeby plik .cpp
 {
 public:
@@ -38,6 +39,7 @@ class Plansza
 	Karta kar_na_gorze;
 	//std::vector <Karta> karty_w_rece; // najlepiej by bylo dynamicznie alokowac ten vector w tablice 
 	std::vector <Gracz*> gracze;
+	std::vector <Karta> kupka; 
 	std::fstream plik;
 public:
 	Plansza();
