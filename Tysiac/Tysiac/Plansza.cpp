@@ -34,13 +34,13 @@ void Plansza::inicjalizuj_karty()
 {
 	/***
 	Karta.id - wskazuje id karty (indexowane od 0)
-	Karta.figura - wskazuje na figure karty (od 9 do 11-asa)
+	Karta.figura - wskazuje na figure karty (od 9 do 14-asa)
 	Karta.kolor - wskazuje kolor karty (1-kier[serce], 2-karo[dzwonek], 3-trefl[øo≥πdü], 4-pik[wino] )
 	***/
 	talia.clear();
 	int id = 0;
 	Karta kar;
-	for (int i = 9; i <= 11; i++)
+	for (int i = 9; i <= 14; i++)
 	{
 		kar.id = id;
 		kar.figura = i;
@@ -64,12 +64,14 @@ void Plansza::tasuj()
 }
 void Plansza::rozdaj(int ile)
 {
-	for (int i = 0; i <= 2; i++) // rozdanie musika
+	musik.clear();
+	musik_dodatkowy.clear();
+	if (ile_graczy >= 3) // na ponad 3 graczy
 	{
-		musik.push_back(talia[i]);
-	}
-	if (ile_graczy == 3) // na 3 graczy
-	{
+		for (int i = 0; i <= 2; i++) // rozdanie musika
+		{
+			musik.push_back(talia[i]);
+		}
 		for (int i = 3; i < talia.size(); i += 3)
 		{
 			gracze[0]->karty_w_rece.push_back(talia[i]);
@@ -77,14 +79,16 @@ void Plansza::rozdaj(int ile)
 			gracze[2]->karty_w_rece.push_back(talia[i + 2]);
 		}
 	}
-	else if(ile_graczy == 4) // na 4 graczy
+	else if (ile_graczy == 2)
 	{
-		for (int i = 3; i < talia.size(); i += 4)
+		musik.push_back(talia[0]);
+		musik.push_back(talia[1]);
+		musik_dodatkowy.push_back(talia[2]);
+		musik_dodatkowy.push_back(talia[3]);
+		for (int i = 4; i < talia.size(); i += 2)
 		{
 			gracze[0]->karty_w_rece.push_back(talia[i]);
 			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
-			gracze[2]->karty_w_rece.push_back(talia[i + 2]);
-			gracze[3]->karty_w_rece.push_back(talia[i + 3]);
 		}
 	}
 
@@ -128,7 +132,7 @@ void Plansza::wczytaj_gre()
 {
 	/************************
 	Struktura pliku od zapisu
-	1. Data (mm/dd/rr GG:MM:SS
+	1. Data (mm/dd/rr GG:MM:SS)
 	2. liczba graczy
 	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa - w nastpenych wierszach
 	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
