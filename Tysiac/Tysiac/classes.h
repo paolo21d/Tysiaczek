@@ -39,15 +39,19 @@ class Plansza
 	Karta kar_na_gorze;
 	//std::vector <Karta> karty_w_rece; // najlepiej by bylo dynamicznie alokowac ten vector w tablice 
 	std::vector <Gracz*> gracze;
-	std::vector <Karta> kupka; 
+	std::vector <Karta> musik; 
+	
 	std::fstream plik;
 public:
+	std::vector <Karta> talia; // talia generowana z niej sa wybierane karty do pozniejszych losowan
+	void inicjalizuj_karty();
 	Plansza();
 	~Plansza(); //destruktor
 	int get_ilosc_graczy();
 	int get_meldunek();
-	void tasuj(std::vector <Karta>);
+	void tasuj();
 	void rozdaj(int ile);
 	void zapisz_gre();
 	void wczytaj_gre();
 };
+
