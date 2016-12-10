@@ -8,7 +8,7 @@ public:
 	int figura;
 	int id;
 };
-class Gracz //nie potrzebny plik .cpp
+class Gracz
 {
 public:
 	std::vector <Karta> karty_w_rece;
@@ -34,16 +34,16 @@ class Komputer : public Gracz
 };
 class Plansza
 {
+private:
 	int ile_graczy;
 	int meldunek;
 	Karta kar_na_gorze;
-	//std::vector <Karta> karty_w_rece; // najlepiej by bylo dynamicznie alokowac ten vector w tablice 
-	std::vector <Gracz*> gracze;
+	//std::vector <Gracz*> gracze;
+	Gracz* gracze[5];
 	std::vector <Karta> musik; 
-	
 	std::fstream plik;
 public:
-	std::vector <Karta> talia; // talia generowana z niej sa wybierane karty do pozniejszych losowan
+	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
 	void inicjalizuj_karty();
 	Plansza();
 	~Plansza(); //destruktor

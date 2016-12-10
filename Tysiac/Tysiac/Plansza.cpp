@@ -32,6 +32,11 @@ int Plansza::get_meldunek()
 }
 void Plansza::inicjalizuj_karty()
 {
+	/***
+	Karta.id - wskazuje id karty (indexowane od 0)
+	Karta.figura - wskazuje na figure karty (od 9 do 11-asa)
+	Karta.kolor - wskazuje kolor karty (1-kier[serce], 2-karo[dzwonek], 3-trefl[øo≥πdü], 4-pik[wino] )
+	***/
 	talia.clear();
 	int id = 0;
 	Karta kar;
@@ -48,7 +53,7 @@ void Plansza::inicjalizuj_karty()
 		}
 	}
 }
-void Plansza::tasuj() // jeszcze jakos zwrocic ta potasowana talie
+void Plansza::tasuj()
 {
 	int k;
 	for (int i = 0; i < talia.size(); i++)
@@ -56,7 +61,6 @@ void Plansza::tasuj() // jeszcze jakos zwrocic ta potasowana talie
 		k = rand() % talia.size();
 		std::swap(talia[i], talia[k]);
 	}
-	//return t;
 }
 void Plansza::rozdaj(int ile)
 {
@@ -106,22 +110,19 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	plik << buffer << std::endl;
 	std::cout << "Save gry z: " << buffer << std::endl; //wypisanie
 	
-
 	/*Ad 3. OPIS GRACZY*/
 	plik << ile_graczy<<std::endl;
 	for (int i = 0; i < ile_graczy; i++)
 	{
 		if (gracze[i]->typ_gracza == 0) //komputer 
 		{
-			plik << gracze[i]->id_gracza <<" K " << gracze[i]->nazwa << gracze[i]->wynik << std::endl;
+			plik << gracze[i]->id_gracza <<" 0 " << gracze[i]->nazwa << gracze[i]->wynik << std::endl;
 		}
 		else if (gracze[i]->typ_gracza == 1) //uzytkownik
 		{
-			plik << gracze[i]->id_gracza << " U " << gracze[i]->nazwa << gracze[i]->wynik << std::endl;
+			plik << gracze[i]->id_gracza << " 1 " << gracze[i]->nazwa << gracze[i]->wynik << std::endl;
 		}
 	}
-
-
 }
 void Plansza::wczytaj_gre()
 {
@@ -136,19 +137,25 @@ void Plansza::wczytaj_gre()
 	plik >> data;
 	plik >> help;
 	data = data + " " + help; // data ostatniego zapisu
-	int ile; // ilosc graczy
+
+	//////////////////////////////////////////////////////////////////wczytanie iloúci graczy
+	std::string ile; // ilosc graczy
 	plik >> ile;
-	std::vector <Gracz*> g;
-	int id, t, n;
-	Gracz* obiekt;
-	for (int i = 0; i < ile; i++) ///////////poprawiÊ wczytywanie z pliku tπ pÍtlÍ
+	ile_graczy = atoi(ile.c_str());
+
+	//////////////////////////////////////////////////////////////////wcytanie danych o poszczegÛlnych graczach
+	std::string id, t, n, w;
+	for (int i = 0; i < ile_graczy; i++)
 	{
-		plik >> id >> t >> n;
-		/*obiekt->id_gracza = id;
-		obiekt->typ_gracza = t;
-		obiekt->nazwa = n;
-		g.push_back(obiekt); // id, typ gracza, nazwa gracza*/
+		plik >> id >> t >> n >> w;
+		gracze[i]->id_gracza = atoi(id.c_str());
+		gracze[i]->typ_gracza = atoi(t.c_str());
+		gracze[i]->nazwa = atoi(n.c_str());
+		gracze[i]->wynik = atoi(w.c_str());
 	}
-	int zaczynajacy;
-	plik >> zaczynajacy; // osoba zaczynajaca
+
+	///////////////////////wczytanie osoby zaczynajπcej
+	std::string z;
+	plik >> z; 
+	int zaczynajacy = atoi(z.c_str()); //osoba zaczynajπca
 }
