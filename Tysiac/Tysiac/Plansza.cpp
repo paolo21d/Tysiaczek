@@ -96,9 +96,16 @@ bool Plansza::sprawdz_plik()
 {
 	plik.open("dane_gry.txt", std::ios::in | std::ios::_Nocreate);
 
-	if (!plik.good())  return 0;
-
-	else return 1;
+	if (!plik.good())
+	{
+		plik.close();
+		return 0;
+	}
+	else
+	{
+		plik.close();
+		return 1;
+	}
 }
 
 
@@ -187,37 +194,33 @@ void Plansza::wczytaj_gre()
 	data = data + " " + godzina;  // data ostatniego zapisu
 
 	std::cout << "Znaleziono plik zapisu gry z dnia: " << data << std::endl;
-	std::cout << "Czy chcesz go wczytaæ (T/N): " << std::endl;
+	std::cout << "Czy chcesz go wczytac (T/N): ";
 	char wybor;
 	std::cin >> wybor;
-	switch (wybor)
+
+	if (wybor == 'T')
 	{
-	case 'N': return 0;
-	case 'T':
+		/*Ad 2. LICZBA GRACZY*/
+		std::string ile; // ilosc graczy
+		plik >> ile;
+		ile_graczy = atoi(ile.c_str());
 
+		/*Ad 3. OPIS GRACZY*/
+		std::string id, t, n, w;
+		for (int i = 0; i < ile_graczy; i++)
+		{
+			plik >> id >> t >> n >> w;
+			gracze[i]->id_gracza = atoi(id.c_str());
+			gracze[i]->typ_gracza = atoi(t.c_str());
+			gracze[i]->nazwa = atoi(n.c_str());
+			gracze[i]->wynik = atoi(w.c_str());
+		}
+
+		/*Ad 4. ROZDAJACY!*/
+		std::string r;
+		plik >> r; 
+		int rozdajacy = atoi(r.c_str());
 	}
-
-
-	/*Ad 2. LICZBA GRACZY*/
-	std::string ile; // ilosc graczy
-	plik >> ile;
-	ile_graczy = atoi(ile.c_str());
-
-	/*Ad 3. OPIS GRACZY*/
-	std::string id, t, n, w;
-	for (int i = 0; i < ile_graczy; i++)
-	{
-		plik >> id >> t >> n >> w;
-		gracze[i]->id_gracza = atoi(id.c_str());
-		gracze[i]->typ_gracza = atoi(t.c_str());
-		gracze[i]->nazwa = atoi(n.c_str());
-		gracze[i]->wynik = atoi(w.c_str());
-	}
-
-	/*Ad 4. ROZDAJACY!*/
-	std::string r;
-	plik >> r; 
-	int rozdajacy = atoi(r.c_str());
 
 	plik.close();
 }
