@@ -12,12 +12,12 @@ void Uzytkownik::wypisz_talie()
 	for(int i=0; i<karty_w_rece.size(); i++)
 	{
 		if (karty_w_rece[i].figura == 11)
-			std::cout << "Jopek " << (char)karty_w_rece[i].figura + 4;
+			std::cout << "Jopek " << (char)karty_w_rece[i].figura + 2;
 		else if (karty_w_rece[i].figura == 12)
-			std::cout << "Dama " << (char)karty_w_rece[i].figura + 4;
+			std::cout << "Dama " << (char)karty_w_rece[i].figura + 2;
 		else if (karty_w_rece[i].figura == 13)
-			std::cout << "Krol " << (char)karty_w_rece[i].figura + 4;
+			std::cout << "Krol " << (char)karty_w_rece[i].figura + 2;
 		else if (karty_w_rece[i].figura == 14)
-			std::cout << "As " << (char)karty_w_rece[i].figura + 4;
+			std::cout << "As " << (char)karty_w_rece[i].figura + 2;
 	}
 }

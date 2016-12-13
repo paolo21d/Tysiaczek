@@ -165,9 +165,7 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 
 void Plansza::wczytaj_gre()
 {
-	plik.open("dane_gry.txt", std::ios::out);
-	plik.close();
-	plik.open("dane_gry.txt", std::ios::in | std::ios::out);
+	plik.open("dane_gry.txt", std::ios::in );
 
 	if (!plik.good()) //nie udalo sie otworzyc pliku
 	{
