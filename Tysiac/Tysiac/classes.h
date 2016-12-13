@@ -47,6 +47,7 @@ class Plansza
 {
 private:
 	int ile_graczy;
+	int rozdajacy;
 	int meldunek;
 	Karta kar_na_gorze;
 	//std::vector <Gracz*> gracze;
@@ -60,7 +61,12 @@ public:
 	Plansza();
 	~Plansza(); //destruktor
 	int get_ilosc_graczy();
+	void set_ilosc_graczy(int ilosc);
+	int get_rozdajacy();
+	void set_rozdajacy(int id);
 	int get_meldunek();
+	void set_meldunek(int meldunek);
+	void licytuj();
 	void tasuj();
 	void rozdaj(int ile);
 	void zapisz_gre();

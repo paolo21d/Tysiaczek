@@ -2,6 +2,7 @@
 #include "classes.h"
 Plansza::Plansza()
 {
+	rozdajacy = 0;
 	inicjalizuj_karty(); ////// inicjalizuje karty w talii
 }
 
@@ -18,10 +19,30 @@ int Plansza::get_ilosc_graczy()
 	return ile_graczy;
 }
 
+void Plansza::set_ilosc_graczy(int ilosc)
+{
+	ile_graczy = ilosc;
+}
+
+int Plansza::get_rozdajacy()
+{
+	return rozdajacy;
+}
+
+void Plansza::set_rozdajacy(int id)
+{
+	rozdajacy = id;
+}
+
 
 int Plansza::get_meldunek()
 {
 	return meldunek;
+}
+
+void Plansza::set_meldunek(int meld)
+{
+	meldunek = meld;
 }
 
 
@@ -217,8 +238,15 @@ void Plansza::wczytaj_gre()
 		/*Ad 4. ROZDAJACY!*/
 		std::string r;
 		plik >> r; 
-		int rozdajacy = atoi(r.c_str());
+		rozdajacy = atoi(r.c_str());
 	}
 
 	plik.close();
+}
+
+void Plansza::licytuj()
+{
+	std::cout << "LICYTACJA" << std::endl;
+	std::cout << "------------------" << std::endl;
+	std::cout << "Gracz " << rozdajacy + 1 << " : 100" << std::endl;
 }
