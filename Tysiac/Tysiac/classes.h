@@ -13,6 +13,8 @@ public:
 	Karta.kolor - wskazuje kolor karty (1-kier[serce], 2-karo[dzwonek], 3-trefl[øo≥πdü], 4-pik[wino] )
 	***/
 };
+
+
 class Gracz
 {
 public:
@@ -27,18 +29,20 @@ public:
 	virtual int melduj() = 0;
 	virtual Karta wybierz() = 0;
 	virtual int licytuj() = 0;
-
 };
+
 class Uzytkownik : public Gracz
 {
-
 public:
 	void wypisz_talie();
 };
+
 class Komputer : public Gracz
 {
 
 };
+
+
 class Plansza
 {
 private:
@@ -61,5 +65,6 @@ public:
 	void rozdaj(int ile);
 	void zapisz_gre();
 	void wczytaj_gre();
+	bool sprawdz_plik();
 };
 

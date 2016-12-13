@@ -3,33 +3,28 @@
 Plansza::Plansza()
 {
 	inicjalizuj_karty(); ////// inicjalizuje karty w talii
-	//otworzenie pliku z zapisami
-	plik.open("dane_gry.txt", std::ios::out);
-	plik.close();
-	plik.open("dane_gry.txt", std::ios::in | std::ios::out);
-	if (!plik.good()) //nie udalo sie otworzyc pliku
-	{
-		std::cout << "NIE UDALO SIE OTWORZYC PLIKU" <<std::endl;
-
-	}
-	else
-	{
-		std::cout << "UDALO SIE OTWORZYC PLIK" << std::endl;
-	}
 }
+
+
 Plansza::~Plansza()
 {
 	//zamkniecie pliku
 	plik.close();
 }
+
+
 int Plansza::get_ilosc_graczy()
 {
 	return ile_graczy;
 }
+
+
 int Plansza::get_meldunek()
 {
 	return meldunek;
 }
+
+
 void Plansza::inicjalizuj_karty()
 {
 	/***
@@ -53,6 +48,8 @@ void Plansza::inicjalizuj_karty()
 		}
 	}
 }
+
+
 void Plansza::tasuj()
 {
 	int k;
@@ -62,6 +59,8 @@ void Plansza::tasuj()
 		std::swap(talia[i], talia[k]);
 	}
 }
+
+
 void Plansza::rozdaj(int ile)
 {
 	musik.clear();
@@ -91,10 +90,33 @@ void Plansza::rozdaj(int ile)
 			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 		}
 	}
-
 }
+
+bool Plansza::sprawdz_plik()
+{
+	plik.open("dane_gry.txt", std::ios::in | std::ios::_Nocreate);
+
+	if (!plik.good())  return 0;
+
+	else return 1;
+}
+
+
 void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepne, czy nadpisujemy
 {
+	plik.open("dane_gry.txt", std::ios::out);
+
+	if (!plik.good()) //nie udalo sie otworzyc pliku
+	{
+		std::cout << "NIE UDALO SIE OTWORZYC PLIKU" << std::endl;
+	}
+
+	else
+	{
+		std::cout << "UDALO SIE OTWORZYC PLIK" << std::endl;
+	}
+	
+	
 	/************************
 	Struktura pliku od zapisu
 	1. Data (mm/dd/rr GG:MM:SS)
@@ -112,10 +134,10 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	localtime_s(&my_timeTM, &my_time); //konwersja i zamiana na strefe lokalna
 	strftime(buffer, sizeof(buffer), "%d/%m/%y %H:%M:%S", &my_timeTM); //zapis do stringa
 	plik << buffer << std::endl;
-	std::cout << "Save gry z: " << buffer << std::endl; //wypisanie
+	//std::cout << "Save gry z: " << buffer << std::endl; //wypisanie
 	
-	/*Ad 3. OPIS GRACZY*/
-	plik << ile_graczy<<std::endl;
+	/*Ad 2,3. LICZBA I OPIS GRACZY*/
+	plik<<ile_graczy<<std::endl;
 	for (int i = 0; i < ile_graczy; i++)
 	{
 		if (gracze[i]->typ_gracza == 0) //komputer 
@@ -127,9 +149,29 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 			plik << gracze[i]->id_gracza << " 1 " << gracze[i]->nazwa << gracze[i]->wynik << std::endl;
 		}
 	}
+
+	/*Ad 4. ROZDAJACY!*/
+
+	plik.close();
 }
+
+
 void Plansza::wczytaj_gre()
 {
+	plik.open("dane_gry.txt", std::ios::out);
+	plik.close();
+	plik.open("dane_gry.txt", std::ios::in | std::ios::out);
+
+	if (!plik.good()) //nie udalo sie otworzyc pliku
+	{
+		std::cout << "NIE UDALO SIE OTWORZYC PLIKU" << std::endl;
+
+	}
+	else
+	{
+		std::cout << "UDALO SIE OTWORZYC PLIK" << std::endl;
+	}
+
 	/************************
 	Struktura pliku od zapisu
 	1. Data (mm/dd/rr GG:MM:SS)
@@ -137,17 +179,31 @@ void Plansza::wczytaj_gre()
 	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa - w nastpenych wierszach
 	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
 	************************/
-	std::string data, help;
-	plik >> data;
-	plik >> help;
-	data = data + " " + help; // data ostatniego zapisu
 
-	//////////////////////////////////////////////////////////////////wczytanie iloœci graczy
+	/*Ad 1. DATA*/
+	std::string data, godzina;
+	plik >> data;
+	plik >> godzina;
+	data = data + " " + godzina;  // data ostatniego zapisu
+
+	std::cout << "Znaleziono plik zapisu gry z dnia: " << data << std::endl;
+	std::cout << "Czy chcesz go wczytaæ (T/N): " << std::endl;
+	char wybor;
+	std::cin >> wybor;
+	switch (wybor)
+	{
+	case 'N': return 0;
+	case 'T':
+
+	}
+
+
+	/*Ad 2. LICZBA GRACZY*/
 	std::string ile; // ilosc graczy
 	plik >> ile;
 	ile_graczy = atoi(ile.c_str());
 
-	//////////////////////////////////////////////////////////////////wcytanie danych o poszczególnych graczach
+	/*Ad 3. OPIS GRACZY*/
 	std::string id, t, n, w;
 	for (int i = 0; i < ile_graczy; i++)
 	{
@@ -158,8 +214,10 @@ void Plansza::wczytaj_gre()
 		gracze[i]->wynik = atoi(w.c_str());
 	}
 
-	///////////////////////wczytanie osoby zaczynaj¹cej
-	std::string z;
-	plik >> z; 
-	int zaczynajacy = atoi(z.c_str()); //osoba zaczynaj¹ca
+	/*Ad 4. ROZDAJACY!*/
+	std::string r;
+	plik >> r; 
+	int rozdajacy = atoi(r.c_str());
+
+	plik.close();
 }
