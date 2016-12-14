@@ -28,7 +28,7 @@ int main()
 		std::cout << std::endl << "Graczu " << plansza.grajacy + 1 << " w musiku otrzymales: ";
 		plansza.wypisz_musik(1);
 	}
-	/////////////////////////////////
+	///////////////////////////////////
 	
 	//plansza.zapisz_gre();
 	int x;
