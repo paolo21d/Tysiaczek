@@ -86,7 +86,7 @@ void Plansza::rozdaj()
 {
 	musik.clear();
 	musik_dodatkowy.clear();
-	if (ile_graczy >= 3) // na ponad 3 graczy
+	if (ile_graczy >= 3) //3 lub 4 graczy
 	{
 		for (int i = 0; i <= 2; i++) // rozdanie musika
 		{
