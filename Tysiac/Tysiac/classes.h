@@ -7,6 +7,7 @@ public:
 	int kolor;
 	int figura;
 	int id;
+	void wypisz();
 	/***
 	Karta.id - wskazuje id karty (indexowane od 0)
 	Karta.figura - wskazuje na figure karty (od 9 do 14-asa)
@@ -26,22 +27,29 @@ public:
 	int punkty_w_partii;
 	int wynik;
 	////////////////////////////// metody virtualne
-	virtual int melduj() = 0;
-	virtual Karta wybierz() = 0;
-	virtual int licytuj() = 0;
+	virtual void wypisz_talie() = 0;
+	//virtual int melduj() = 0;
+	//virtual Karta wybierz() = 0;
+	//virtual int licytuj() = 0;
 };
 
 class Uzytkownik : public Gracz
 {
 public:
 	void wypisz_talie();
+	//virtual int melduj();
+	//virtual Karta wybierz();
+	//virtual int licytuj();
 };
 
-class Komputer : public Gracz
+/*class Komputer : public Gracz
 {
-
+public:
+	virtual int melduj();
+	virtual Karta wybierz();
+	virtual int licytuj();
 };
-
+*/
 
 class Plansza
 {
@@ -51,12 +59,15 @@ private:
 	int meldunek;
 	Karta kar_na_gorze;
 	//std::vector <Gracz*> gracze;
+	Uzytkownik uzyt[4];
+	//Komputer komp[4];
 	Gracz* gracze[4];
 	std::vector <Karta> musik; 
 	std::vector <Karta> musik_dodatkowy;
 	std::fstream plik;
 public:
 	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
+	int grajacy;
 	void inicjalizuj_karty();
 	Plansza();
 	~Plansza(); //destruktor
@@ -66,11 +77,13 @@ public:
 	void set_rozdajacy(int id);
 	int get_meldunek();
 	void set_meldunek(int meldunek);
-	void licytuj();
 	void tasuj();
-	void rozdaj(int ile);
+	void rozdaj();
+	void licytuj();
+	void wypisz_musik(int lp);
 	void zapisz_gre();
 	void wczytaj_gre();
+	void nowa_gra();
 	bool sprawdz_plik();
 };
 

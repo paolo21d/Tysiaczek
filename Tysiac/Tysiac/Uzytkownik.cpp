@@ -8,16 +8,10 @@ void Uzytkownik::wypisz_talie()
 	Karta.figura - wskazuje na figure karty (od 9 do 14-asa)
 	Karta.kolor - wskazuje kolor karty (1-kier[serce], 2-karo[dzwonek], 3-trefl[øo≥πdü], 4-pik[wino] )
 	***/
-	std::cout << "Twoje karty: " << std::endl;
+	std::cout << "Twoje karty: ";
 	for(int i=0; i<karty_w_rece.size(); i++)
 	{
-		if (karty_w_rece[i].figura == 11)
-			std::cout << "Jopek " << (char)karty_w_rece[i].figura + 2;
-		else if (karty_w_rece[i].figura == 12)
-			std::cout << "Dama " << (char)karty_w_rece[i].figura + 2;
-		else if (karty_w_rece[i].figura == 13)
-			std::cout << "Krol " << (char)karty_w_rece[i].figura + 2;
-		else if (karty_w_rece[i].figura == 14)
-			std::cout << "As " << (char)karty_w_rece[i].figura + 2;
+		karty_w_rece[i].wypisz();
+		std::cout << " | ";
 	}
 }

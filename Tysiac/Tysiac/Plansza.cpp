@@ -82,7 +82,7 @@ void Plansza::tasuj()
 }
 
 
-void Plansza::rozdaj(int ile)
+void Plansza::rozdaj()
 {
 	musik.clear();
 	musik_dodatkowy.clear();
@@ -244,9 +244,103 @@ void Plansza::wczytaj_gre()
 	plik.close();
 }
 
+void Plansza::nowa_gra()
+{
+	std::cout << "Podaj liczbe graczy (od 2 do 4): ";
+	std::cin >> ile_graczy;
+	std::cout << "Dla kazdego gracza podaj czy ma byc sterowany przez uzytkownika czy komputer (wpisz 'U' lub 'K')" << std::endl;
+	char wybor;
+
+	for (int i = 0; i < ile_graczy; i++)
+	{
+		std::cout << "Gracz " << i + 1 << " : ";
+		std::cin >> wybor;
+
+		switch (wybor)
+		{
+		/*case 'K':
+			gracze[i] = &komp[i];
+			break;*/
+
+		case 'U':
+			gracze[i] = &uzyt[i];
+			break;
+		}
+	}
+
+
+}
+
 void Plansza::licytuj()
 {
-	std::cout << "LICYTACJA" << std::endl;
+	std::cout << std::endl << "LICYTACJA" << std::endl;
 	std::cout << "------------------" << std::endl;
-	std::cout << "Gracz " << rozdajacy + 1 << " : 100" << std::endl;
+	std::cout << "Rozdawal Gracz " << rozdajacy+1 << std::endl;
+	int ile_licytuje = ile_graczy;
+	int licytowane = 100;
+
+	for (int i = 0; i < ile_graczy; i++) gracze[i]->wylicytowane = 100;
+
+	for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < ile_graczy; j++)
+		{
+			if (gracze[j]->wylicytowane == 0) continue;
+
+			if (i == 0 && j == 0) j = rozdajacy + 1;
+
+			std::cout << "Gracz " << j + 1 << " : ";
+			if (i == 0 && j == rozdajacy + 1) std::cout << "100" << std::endl << std::endl;
+			
+			else
+			{
+				std::cout << std::endl;
+				gracze[j]->wypisz_talie();
+				std::cout << std::endl;
+				std::cout << "Twoja kwota: ";
+				std::cin >> licytowane;
+				std::cout << std::endl;
+			}
+
+			gracze[j]->wylicytowane = licytowane;
+
+			if (licytowane == 0) ile_licytuje--;
+
+			if (ile_licytuje == 1)
+			{
+				for (int k = 0; k < ile_graczy; k++)
+				{
+					if (gracze[k]->wylicytowane == 0) continue;
+					else
+					{
+						std::cout << "Licytacje wygral Gracz " << k+1 << std::endl;
+						std::cout << "Wylicytowal on " << gracze[k]->wylicytowane;
+						grajacy = k;
+						return;
+					}
+				}
+			}	
+		}
+	}
+}
+
+void Plansza::wypisz_musik(int lp)
+{
+	switch (lp)
+	{
+	case 1:
+		for (int i = 0; i<musik.size(); i++)
+		{
+			musik[i].wypisz();
+			std::cout << " | ";
+		}
+		break;
+
+	case 2:
+		for (int i = 0; i<musik_dodatkowy.size(); i++)
+		{
+			musik_dodatkowy[i].wypisz();
+			std::cout << " | ";
+		}
+	}
 }
