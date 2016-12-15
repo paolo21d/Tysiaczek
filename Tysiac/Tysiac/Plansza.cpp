@@ -281,6 +281,12 @@ void Plansza::licytuj()
 
 	for (int i = 0; i < ile_graczy; i++) gracze[i]->wylicytowane = 100;
 
+	if (ile_graczy == 4)
+	{
+		ile_licytuje--;
+		gracze[rozdajacy]->wylicytowane = 0;
+	}
+
 	for (int i = 0; i < 30; i++)
 	{
 		for (int j = 0; j < ile_graczy; j++)
