@@ -368,6 +368,7 @@ void Plansza::licytuj()
 						std::cout << "Licytacje wygral Gracz " << k+1 << std::endl;
 						std::cout << "Wylicytowal on " << gracze[k]->wylicytowane;
 						id_grajacy = k;
+						wylicytowane = gracze[k]->wylicytowane;
 						return;
 					}
 				}

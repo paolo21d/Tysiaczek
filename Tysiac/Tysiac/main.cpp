@@ -46,6 +46,14 @@ int main()
 			plansza.oddaj_karte(plansza.id_grajacy, i, do_oddania);
 		}
 	}
+	plansza.wypisz_karty_gracza(plansza.id_grajacy);
+	std::cout << std::endl << "Mozesz teraz zwiekszyc wylicytowana kwote." << std::endl;
+	std::cout <<"Jesli nie chcesz tego robic, wpisz ponownie ta sama kwote. " << std::endl;
+	std::cout << "Jesli chcesz zagrac bombe wpisz '0'." << std::endl;
+	std::cout << "Twoja decyzja (wylicytowales " << plansza.wylicytowane << "): ";
+	int kwota;
+	std::cin >> kwota;
+
 	///////////////////////////////////
 	
 	//plansza.zapisz_gre();

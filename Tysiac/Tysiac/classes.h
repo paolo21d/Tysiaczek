@@ -69,6 +69,7 @@ private:
 public:
 	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
 	int id_grajacy;
+	int wylicytowane;
 	void inicjalizuj_karty();
 	void nowa_kolejka();
 	void nowa_kolejka(int id_gracza);
