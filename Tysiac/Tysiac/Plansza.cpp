@@ -2,7 +2,7 @@
 #include "classes.h"
 Plansza::Plansza()
 {
-	rozdajacy = 0;
+	id_rozdajacy = 0;
 	inicjalizuj_karty(); ////// inicjalizuje karty w talii
 }
 
@@ -24,14 +24,14 @@ void Plansza::set_ilosc_graczy(int ilosc)
 	ile_graczy = ilosc;
 }
 
-int Plansza::get_rozdajacy()
+int Plansza::get_id_rozdajacy()
 {
-	return rozdajacy;
+	return id_rozdajacy;
 }
 
-void Plansza::set_rozdajacy(int id)
+void Plansza::set_id_rozdajacy(int id)
 {
-	rozdajacy = id;
+	id_rozdajacy = id;
 }
 
 
@@ -113,6 +113,17 @@ void Plansza::rozdaj()
 	}
 }
 
+
+void Plansza::nowa_kolejka()
+{
+	for (int k = 0; k < 2; k++)
+	{
+		std::cout << "Graczu, odejdz od komputera, za " << 10 - k * 2 << " sekund zacznie sie kolejka Gracza " << id_grajacy + 1 << "!";
+		Sleep(2000 + k * 8000);
+		system("cls");
+	}
+}
+
 void Plansza::nowa_kolejka(int id_gracza)
 {
 	for (int k = 0; k < 2; k++)
@@ -160,7 +171,7 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 	1. Data (mm/dd/rr GG:MM:SS)
 	2. liczba graczy
 	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa, wynik- w nastpenych wierszach
-	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
+	4. id gracza rozpoczynajacego nastpene rozdanie (id_rozdajacy)
 	************************/
 
 	/*Ad 1. DATA*/
@@ -188,7 +199,7 @@ void Plansza::zapisz_gre() //ustalic na jakiej zasadzie beda zapisy, czy nastepn
 		}
 	}
 
-	/*Ad 4. ROZDAJACY!*/
+	/*Ad 4. id_rozdajacy!*/
 
 	plik.close();
 }
@@ -213,7 +224,7 @@ void Plansza::wczytaj_gre()
 	1. Data (mm/dd/rr GG:MM:SS)
 	2. liczba graczy
 	3. opis graczy - id, Typ(0-komputer, 1-czlowiek), nazwa - w nastpenych wierszach
-	4. id gracza rozpoczynajacego nastpene rozdanie (rozdajacy)
+	4. id gracza rozpoczynajacego nastpene rozdanie (id_rozdajacy)
 	************************/
 
 	/*Ad 1. DATA*/
@@ -245,10 +256,10 @@ void Plansza::wczytaj_gre()
 			gracze[i]->wynik = atoi(w.c_str());
 		}
 
-		/*Ad 4. ROZDAJACY!*/
+		/*Ad 4. id_rozdajacy!*/
 		std::string r;
 		plik >> r; 
-		rozdajacy = atoi(r.c_str());
+		id_rozdajacy = atoi(r.c_str());
 	}
 
 	plik.close();
@@ -285,7 +296,7 @@ void Plansza::licytuj()
 {
 	/*std::cout << std::endl << "LICYTACJA" << std::endl;
 	std::cout << "------------------" << std::endl;
-	std::cout << "Rozdawal Gracz " << rozdajacy + 1 << std::endl << std::endl;
+	std::cout << "Rozdawal Gracz " << id_rozdajacy + 1 << std::endl << std::endl;
 	*/
 	int ile_licytuje = ile_graczy;
 	int licytowane = 100;
@@ -295,7 +306,7 @@ void Plansza::licytuj()
 	if (ile_graczy == 4)
 	{
 		ile_licytuje--;
-		gracze[rozdajacy]->wylicytowane = 0;
+		gracze[id_rozdajacy]->wylicytowane = 0;
 	}
 
 	std::cout << std::endl;
@@ -309,7 +320,7 @@ void Plansza::licytuj()
 			{
 				std::cout << "LICYTACJA" << std::endl;
 				std::cout << "------------------" << std::endl;
-				std::cout << "Rozdawal Gracz " << rozdajacy + 1 << std::endl;
+				std::cout << "Rozdawal Gracz " << id_rozdajacy + 1 << std::endl;
 				for (int k = 0; k < ile_graczy; k++)
 				{
 					std::cout << "Gracz " << k + 1 << " : ";
@@ -326,14 +337,14 @@ void Plansza::licytuj()
 
 			if (gracze[j]->wylicytowane == 0) continue;
 
-			if (i == 0 && j == 0) j = rozdajacy + 1;
+			if (i == 0 && j == 0) j = id_rozdajacy + 1;
 
 
 			std::cout << std::endl << "Gracz " << j + 1 << " : " << std::endl;
 			
 			
-			//if (i == 0 && j == rozdajacy + 1) std::cout << "100" << std::endl << std::endl;
-			if (i != 0 || j != rozdajacy + 1)
+			//if (i == 0 && j == id_rozdajacy + 1) std::cout << "100" << std::endl << std::endl;
+			if (i != 0 || j != id_rozdajacy + 1)
 			{
 				gracze[j]->wypisz_talie();
 				std::cout << std::endl;
@@ -356,7 +367,7 @@ void Plansza::licytuj()
 						system("cls");
 						std::cout << "Licytacje wygral Gracz " << k+1 << std::endl;
 						std::cout << "Wylicytowal on " << gracze[k]->wylicytowane;
-						grajacy = k;
+						id_grajacy = k;
 						return;
 					}
 				}
@@ -366,8 +377,9 @@ void Plansza::licytuj()
 			int id_nastepny = j + 1;
 			while (id_nastepny >= ile_graczy || gracze[id_nastepny]->wylicytowane == 0)
 			{
-				if (id_nastepny >= ile_graczy) id_nastepny = 1;
-				else id_nastepny++;
+					if (id_nastepny >= ile_graczy) id_nastepny = 0;
+					else if (gracze[id_nastepny]->licytowal == false) break;
+					else id_nastepny++;
 			}
 			nowa_kolejka(id_nastepny);
 		}
@@ -393,4 +405,68 @@ void Plansza::wypisz_musik(int lp)
 			std::cout << " | ";
 		}
 	}
+}
+
+void Plansza::zabierz_musik(int lp = 1)
+{
+	switch (lp)
+	{
+	case 1:
+		dodaj_karte(id_grajacy, musik);
+		break;
+
+
+	case 2:
+		dodaj_karte(id_grajacy, musik_dodatkowy);
+		break;
+	}
+}
+
+void Plansza::wypisz_karty_gracza(int id_gracza)
+{
+	gracze[id_gracza]->wypisz_talie();
+}
+
+
+void Plansza::dodaj_karte(int id_gracza, Karta karta)
+{
+	gracze[id_gracza]->karty_w_rece.push_back(karta);
+}
+
+void Plansza::dodaj_karte(int id_gracza, std::vector <Karta> karty)
+{
+	for (int i = 0; i < karty.size(); i++)
+	{
+		gracze[id_gracza]->karty_w_rece.push_back(karty[i]);
+	}
+}
+
+void Plansza::usun_karte(int id_gracza, Karta karta)
+{
+	for (int i = 0; i < gracze[id_gracza]->karty_w_rece.size(); i++)
+	{
+		if (gracze[id_gracza]->karty_w_rece[i].id == karta.id)
+		{
+			gracze[id_gracza]->karty_w_rece.erase(gracze[id_gracza]->karty_w_rece.begin() + i);
+		}
+	}
+}
+
+void Plansza::usun_karte(int id_gracza, int poz_karty)
+{
+	gracze[id_gracza]->karty_w_rece.erase(gracze[id_gracza]->karty_w_rece.begin() + poz_karty-1);
+}
+
+void Plansza::oddaj_karte(int id_gracza1, int id_gracza2, Karta karta)
+{
+	dodaj_karte(id_gracza2, karta);
+	usun_karte(id_gracza1, karta);
+}
+
+void Plansza::oddaj_karte(int id_gracza1, int id_gracza2, int poz_karty)
+{
+	Karta karta = gracze[id_gracza1]->karty_w_rece[poz_karty - 1];
+	
+	dodaj_karte(id_gracza2, karta);
+	usun_karte(id_gracza1, poz_karty-1);
 }

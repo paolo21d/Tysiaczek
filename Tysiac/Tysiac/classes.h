@@ -56,7 +56,7 @@ class Plansza
 {
 private:
 	int ile_graczy;
-	int rozdajacy;
+	int id_rozdajacy;
 	int meldunek;
 	Karta kar_na_gorze;
 	//std::vector <Gracz*> gracze;
@@ -68,21 +68,30 @@ private:
 	std::fstream plik;
 public:
 	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
-	int grajacy;
+	int id_grajacy;
 	void inicjalizuj_karty();
+	void nowa_kolejka();
 	void nowa_kolejka(int id_gracza);
 	Plansza();
 	~Plansza(); //destruktor
 	int get_ilosc_graczy();
 	void set_ilosc_graczy(int ilosc);
-	int get_rozdajacy();
-	void set_rozdajacy(int id);
+	int get_id_rozdajacy();
+	void set_id_rozdajacy(int id);
 	int get_meldunek();
 	void set_meldunek(int meldunek);
 	void tasuj();
 	void rozdaj();
 	void licytuj();
 	void wypisz_musik(int lp);
+	void zabierz_musik(int lp);
+	void wypisz_karty_gracza(int id_gracza);
+	void dodaj_karte(int id_gracza, Karta karta);
+	void dodaj_karte(int id_gracza, std::vector <Karta> karty);
+	void usun_karte(int id_gracza, Karta karta);
+	void usun_karte(int id_gracza, int poz_karty);
+	void oddaj_karte(int id_gracza1, int id_gracza2, Karta karta);
+	void oddaj_karte(int id_gracza1, int id_gracza2, int poz_karty);
 	void zapisz_gre();
 	void wczytaj_gre();
 	void nowa_gra();

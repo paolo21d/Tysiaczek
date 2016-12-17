@@ -15,3 +15,4 @@ void Uzytkownik::wypisz_talie()
 		std::cout << " | ";
 	}
 }
+
