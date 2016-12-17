@@ -21,6 +21,7 @@ class Gracz
 public:
 	std::vector <Karta> karty_w_rece;
 	std::string nazwa;
+	bool licytowal = false;
 	int typ_gracza; //0-komputer, 1-czlowiek
 	int id_gracza;
 	int wylicytowane;
@@ -69,6 +70,7 @@ public:
 	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
 	int grajacy;
 	void inicjalizuj_karty();
+	void nowa_kolejka(int id_gracza);
 	Plansza();
 	~Plansza(); //destruktor
 	int get_ilosc_graczy();

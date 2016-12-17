@@ -113,6 +113,16 @@ void Plansza::rozdaj()
 	}
 }
 
+void Plansza::nowa_kolejka(int id_gracza)
+{
+	for (int k = 0; k < 2; k++)
+	{
+		std::cout << "Graczu, odejdz od komputera, za " << 10 - k * 2 << " sekund zacznie sie kolejka Gracza "<<id_gracza+1<<"!";
+		Sleep(2000 + k * 8000);
+		system("cls");
+	}
+}
+
 bool Plansza::sprawdz_plik()
 {
 	plik.open("dane_gry.txt", std::ios::in | std::ios::_Nocreate);
@@ -273,9 +283,10 @@ void Plansza::nowa_gra()
 
 void Plansza::licytuj()
 {
-	std::cout << std::endl << "LICYTACJA" << std::endl;
+	/*std::cout << std::endl << "LICYTACJA" << std::endl;
 	std::cout << "------------------" << std::endl;
-	std::cout << "Rozdawal Gracz " << rozdajacy+1 << std::endl;
+	std::cout << "Rozdawal Gracz " << rozdajacy + 1 << std::endl << std::endl;
+	*/
 	int ile_licytuje = ile_graczy;
 	int licytowane = 100;
 
@@ -287,20 +298,43 @@ void Plansza::licytuj()
 		gracze[rozdajacy]->wylicytowane = 0;
 	}
 
+	std::cout << std::endl;
+
 	for (int i = 0; i < 30; i++)
 	{
 		for (int j = 0; j < ile_graczy; j++)
 		{
+			
+			if (gracze[j]->wylicytowane != 0)
+			{
+				std::cout << "LICYTACJA" << std::endl;
+				std::cout << "------------------" << std::endl;
+				std::cout << "Rozdawal Gracz " << rozdajacy + 1 << std::endl;
+				for (int k = 0; k < ile_graczy; k++)
+				{
+					std::cout << "Gracz " << k + 1 << " : ";
+					if (!gracze[k]->licytowal) std::cout << "-" << std::endl;
+					else
+					{
+						std::cout << gracze[k]->wylicytowane;
+						if (gracze[k]->wylicytowane == 0) std::cout << " (pas)";
+						std::cout << std::endl;
+					}
+				}
+			}
+
+
 			if (gracze[j]->wylicytowane == 0) continue;
 
 			if (i == 0 && j == 0) j = rozdajacy + 1;
 
-			std::cout << "Gracz " << j + 1 << " : ";
-			if (i == 0 && j == rozdajacy + 1) std::cout << "100" << std::endl << std::endl;
+
+			std::cout << std::endl << "Gracz " << j + 1 << " : " << std::endl;
 			
-			else
+			
+			//if (i == 0 && j == rozdajacy + 1) std::cout << "100" << std::endl << std::endl;
+			if (i != 0 || j != rozdajacy + 1)
 			{
-				std::cout << std::endl;
 				gracze[j]->wypisz_talie();
 				std::cout << std::endl;
 				std::cout << "Twoja kwota: ";
@@ -309,9 +343,9 @@ void Plansza::licytuj()
 			}
 
 			gracze[j]->wylicytowane = licytowane;
-
-			if (licytowane == 0) ile_licytuje--;
-
+			gracze[j]->licytowal = true;
+			if (licytowane == 0) ile_licytuje--;		
+			
 			if (ile_licytuje == 1)
 			{
 				for (int k = 0; k < ile_graczy; k++)
@@ -319,13 +353,23 @@ void Plansza::licytuj()
 					if (gracze[k]->wylicytowane == 0) continue;
 					else
 					{
+						system("cls");
 						std::cout << "Licytacje wygral Gracz " << k+1 << std::endl;
 						std::cout << "Wylicytowal on " << gracze[k]->wylicytowane;
 						grajacy = k;
 						return;
 					}
 				}
-			}	
+			}
+
+
+			int id_nastepny = j + 1;
+			while (id_nastepny >= ile_graczy || gracze[id_nastepny]->wylicytowane == 0)
+			{
+				if (id_nastepny >= ile_graczy) id_nastepny = 1;
+				else id_nastepny++;
+			}
+			nowa_kolejka(id_nastepny);
 		}
 	}
 }
