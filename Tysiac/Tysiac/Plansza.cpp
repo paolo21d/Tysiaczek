@@ -300,6 +300,7 @@ void Plansza::licytuj()
 	*/
 	int ile_licytuje = ile_graczy;
 	int licytowane = 100;
+	int prog = 100;
 
 	for (int i = 0; i < ile_graczy; i++) gracze[i]->wylicytowane = 100;
 
@@ -348,11 +349,12 @@ void Plansza::licytuj()
 			{
 				gracze[j]->wypisz_talie();
 				std::cout << std::endl;
-				std::cout << "Twoja kwota: ";
+				std::cout << "Twoja kwota (min " << prog + 10 << "):";
 				std::cin >> licytowane;
 				std::cout << std::endl;
 			}
 
+			if (licytowane >= prog) prog = licytowane;
 			gracze[j]->wylicytowane = licytowane;
 			gracze[j]->licytowal = true;
 			if (licytowane == 0) ile_licytuje--;		
