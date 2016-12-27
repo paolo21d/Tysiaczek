@@ -86,7 +86,51 @@ void Plansza::rozdaj()
 {
 	musik.clear();
 	musik_dodatkowy.clear();
-	if (ile_graczy >= 3) //3 lub 4 graczy
+	if (ile_graczy == 4) //4 graczy
+	{
+		for (int i = 0; i <= 2; i++) // rozdanie musika
+		{
+			musik.push_back(talia[i]);
+		}
+		if (id_rozdajacy == 0) // nie dostaje gracz 0
+		{
+			for (int i = 3; i < talia.size(); i += 3)
+			{
+				gracze[1]->karty_w_rece.push_back(talia[i]);
+				gracze[2]->karty_w_rece.push_back(talia[i + 1]);
+				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
+			}
+		}
+		if (id_rozdajacy == 1) // nie dostaje gracz 1
+		{
+			for (int i = 3; i < talia.size(); i += 3)
+			{
+				gracze[0]->karty_w_rece.push_back(talia[i]);
+				gracze[2]->karty_w_rece.push_back(talia[i + 1]);
+				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
+			}
+		}
+		if (id_rozdajacy == 2) // nie dostaje gracz 2
+		{
+			for (int i = 3; i < talia.size(); i += 3)
+			{
+				gracze[0]->karty_w_rece.push_back(talia[i]);
+				gracze[1]->karty_w_rece.push_back(talia[i + 1]);
+				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
+			}
+		}
+		if (id_rozdajacy == 3) // nie dostaje gracz 3
+		{
+			for (int i = 3; i < talia.size(); i += 3)
+			{
+				gracze[0]->karty_w_rece.push_back(talia[i]);
+				gracze[1]->karty_w_rece.push_back(talia[i + 1]);
+				gracze[2]->karty_w_rece.push_back(talia[i + 2]);
+			}
+		}
+		
+	}
+	if (ile_graczy == 3) //3 graczy
 	{
 		for (int i = 0; i <= 2; i++) // rozdanie musika
 		{
@@ -95,11 +139,11 @@ void Plansza::rozdaj()
 		for (int i = 3; i < talia.size(); i += 3)
 		{
 			gracze[0]->karty_w_rece.push_back(talia[i]);
-			gracze[1]->karty_w_rece.push_back(talia[i+1]);
+			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 			gracze[2]->karty_w_rece.push_back(talia[i + 2]);
 		}
 	}
-	else if (ile_graczy == 2)
+	else if (ile_graczy == 2) //2 graczy
 	{
 		musik.push_back(talia[0]);
 		musik.push_back(talia[1]);
