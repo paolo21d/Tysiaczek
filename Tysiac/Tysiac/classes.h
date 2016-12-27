@@ -58,7 +58,10 @@ private:
 	int ile_graczy;
 	int id_rozdajacy;
 	int meldunek;
-	Karta kar_na_gorze;
+	void sprawdz_meldunek(int id_gracza, int pozycja_karty);
+	int podlicz_punkty(std::vector<Karta> karty);
+	std::pair <int, Karta> prowadzacy;
+	std::vector <Karta> wylozone;
 	//std::vector <Gracz*> gracze;
 	Uzytkownik uzyt[4];
 	//Komputer komp[4];
@@ -71,6 +74,7 @@ public:
 	int id_grajacy;
 	int wylicytowane;
 	void inicjalizuj_karty();
+	void wypisz_karty(std::vector <Karta> karty);
 	void nowa_kolejka();
 	void nowa_kolejka(int id_gracza);
 	Plansza();
@@ -84,6 +88,7 @@ public:
 	void tasuj();
 	void rozdaj();
 	void licytuj();
+	void rozegraj_partie();
 	void wypisz_musik(int lp);
 	void zabierz_musik(int lp);
 	void wypisz_karty_gracza(int id_gracza);

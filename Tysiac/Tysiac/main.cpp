@@ -40,10 +40,14 @@ int main()
 	{
 		if (i != plansza.id_grajacy)
 		{
-			int do_oddania = 0;
-			std::cout << "Dla Gracza " << i + 1 << " : ";
-			std::cin >> do_oddania;
-			plansza.oddaj_karte(plansza.id_grajacy, i, do_oddania);
+			if (plansza.get_ilosc_graczy() == 4 && i == plansza.get_id_rozdajacy()) continue;
+			else
+			{
+				int do_oddania = 0;
+				std::cout << "Dla Gracza " << i + 1 << " : ";
+				std::cin >> do_oddania;
+				plansza.oddaj_karte(plansza.id_grajacy, i, do_oddania);
+			}
 		}
 	}
 	plansza.wypisz_karty_gracza(plansza.id_grajacy);
@@ -53,7 +57,10 @@ int main()
 	std::cout << "Twoja decyzja (wylicytowales " << plansza.wylicytowane << "): ";
 	int kwota;
 	std::cin >> kwota;
+	if (kwota != 0) plansza.wylicytowane = kwota;
+	//else bomba
 
+	plansza.rozegraj_partie();
 	///////////////////////////////////
 	
 	//plansza.zapisz_gre();

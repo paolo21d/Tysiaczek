@@ -157,6 +157,63 @@ void Plansza::rozdaj()
 	}
 }
 
+void Plansza::wypisz_karty(std::vector <Karta> karty)
+{
+	for (int i = 0; i < karty.size(); i++)
+	{
+		karty[i].wypisz();
+		std::cout << " | ";
+	}
+}
+
+void Plansza::sprawdz_meldunek(int id_gracza, int pozycja_karty)
+{
+	for (int i = 0; i < gracze[id_gracza]->karty_w_rece.size(); i++)
+	{
+		if (gracze[id_gracza]->karty_w_rece[pozycja_karty-1].figura == 12)
+		{
+			if (gracze[id_gracza]->karty_w_rece[i].id == gracze[id_gracza]->karty_w_rece[pozycja_karty - 1].id + 1)
+			{
+				set_meldunek(gracze[id_gracza]->karty_w_rece[pozycja_karty - 1].kolor);
+				gracze[id_gracza]->punkty_w_partii += 120 - 20 * meldunek;
+				return;
+			}
+		}
+		else return;
+	}
+}
+
+int Plansza::podlicz_punkty(std::vector<Karta> karty)
+{
+	int punkty = 0;
+
+	for (int i = 0; i < karty.size(); i++)
+	{
+		switch (karty[i].figura)
+		{
+		case 9:
+			break;
+		case 10:
+			punkty += 10;
+			break;
+		case 11:
+			punkty += 2;
+			break;
+		case 12:
+			punkty += 3;
+			break;
+		case 13:
+			punkty += 4;
+			break;
+		case 14:
+			punkty += 11;
+			break;
+		}
+	}
+
+	return punkty;
+}
+
 
 void Plansza::nowa_kolejka()
 {
@@ -434,6 +491,73 @@ void Plansza::licytuj()
 		}
 	}
 }
+
+
+void Plansza::rozegraj_partie()
+{
+	int ile_kolejek;
+	if (ile_graczy == 2) ile_kolejek = 11;
+	else ile_kolejek = 8;
+
+	int ile_gra = ile_graczy;
+	if (ile_graczy == 4) ile_gra--;
+
+	int id_schodzacy = id_grajacy;
+
+	for (int i = 0; i < ile_kolejek; i++)
+	{
+		for (int j = 0; j < ile_gra; j++)
+		{
+			if (j != 0)
+			{
+				std::cout << std::endl << "Na stole leza: ";
+				wypisz_karty(wylozone);
+				std::cout << std::endl;
+			}
+			gracze[id_schodzacy]->wypisz_talie();
+			std::cout << std::endl << "Graczu " << id_schodzacy + 1 << " wybierz, ktora karte chcesz zagrac (wpisz jej pozycje od lewej): " << std::endl;
+			int poz;
+			std::cin >> poz;
+			if (j == 0) sprawdz_meldunek(id_schodzacy, poz);
+			wylozone.push_back(gracze[id_schodzacy]->karty_w_rece[poz - 1]);
+			usun_karte(id_schodzacy, poz);
+
+			if (j == 0)
+			{
+				prowadzacy.first = id_schodzacy;
+				prowadzacy.second = wylozone[0];
+			}
+
+			if (prowadzacy.second.kolor == wylozone.back().kolor)
+			{
+				if (prowadzacy.second.figura < wylozone.back().figura)
+				{
+					prowadzacy.first = id_schodzacy;
+					prowadzacy.second = wylozone.back();
+				}
+			}
+			else if (meldunek >= 1 && meldunek <= 4 && wylozone.back().kolor == meldunek)
+			{
+				prowadzacy.first = id_schodzacy;
+				prowadzacy.second = wylozone.back();
+			}
+
+			id_schodzacy++;
+			if (id_schodzacy >= ile_graczy) id_schodzacy = 0;
+			if (ile_graczy == 4 && id_schodzacy == id_rozdajacy) id_schodzacy++;
+			if (id_schodzacy >= ile_graczy) id_schodzacy = 0;
+
+			if (j == ile_gra - 1)
+			{
+				std::cout << "Kolejke wygral Gracz " << prowadzacy.first+1 << std::endl;
+				gracze[prowadzacy.first]->punkty_w_partii += podlicz_punkty(wylozone);
+			}
+
+			nowa_kolejka(id_schodzacy);
+		}
+	}
+}
+
 
 void Plansza::wypisz_musik(int lp)
 {
