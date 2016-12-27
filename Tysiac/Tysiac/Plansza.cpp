@@ -352,6 +352,7 @@ void Plansza::licytuj()
 	{
 		ile_licytuje--;
 		gracze[id_rozdajacy]->wylicytowane = 0;
+		gracze[id_rozdajacy]->licytowal = true;
 	}
 
 	std::cout << std::endl;
@@ -370,6 +371,7 @@ void Plansza::licytuj()
 				{
 					std::cout << "Gracz " << k + 1 << " : ";
 					if (!gracze[k]->licytowal) std::cout << "-" << std::endl;
+					else if (ile_graczy == 4 && k == id_rozdajacy) std::cout << "-" << std::endl;
 					else
 					{
 						std::cout << gracze[k]->wylicytowane;
