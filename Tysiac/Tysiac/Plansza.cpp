@@ -392,7 +392,7 @@ void Plansza::nowa_gra()
 	{
 		std::cout << "Gracz " << i + 1 << " : ";
 		std::cin >> wybor;
-
+		wybor = toupper(wybor);
 		switch (wybor)
 		{
 		/*case 'K':
