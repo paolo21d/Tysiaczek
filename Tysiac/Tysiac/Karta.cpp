@@ -15,33 +15,41 @@ void Karta::wypisz()
 	else if (figura == 12) std::cout << "Dama " << (char) (kolor + 2);
 	else if (figura == 13) std::cout << "Krol " << (char) (kolor + 2);
 	else if (figura == 14) std::cout << "As " << (char) (kolor + 2);*/
-
 	if (kolor == 1)//serce
 	{
+		//std::cout << "s";
 		if (figura == 9 || figura == 10) std::cout << figura << " kier";
 		else if (figura == 11) std::cout << "Jopek " << "kier";
 		else if (figura == 12) std::cout << "Dama " << "kier";
+		else if (figura == 13) std::cout << "Krol " << "kier";
 		else if (figura == 14) std::cout << "As " << "kier";
 	}
 	else if (kolor == 2)//dzownek
 	{
+		//std::cout << "d";
 		if (figura == 9 || figura == 10) std::cout << figura << " karo";
 		else if (figura == 11) std::cout << "Jopek " << "karo";
 		else if (figura == 12) std::cout << "Dama " << "karo";
+		else if (figura == 13) std::cout << "Krol " << "karo";
 		else if (figura == 14) std::cout << "As " << "karo";
 	}
 	else if (kolor == 3)//¿o³¹dŸ
 	{
+		//std::cout << "z";
 		if (figura == 9 || figura == 10) std::cout << figura << " trefl";
 		else if (figura == 11) std::cout << "Jopek " << "trefl";
 		else if (figura == 12) std::cout << "Dama " << "trefl";
+		else if (figura == 13) std::cout << "Krol " << "trefl";
 		else if (figura == 14) std::cout << "As " << "trefl";
 	}
 	else if (kolor == 4)//wino
 	{
+		//std::cout << "w";
 		if (figura == 9 || figura == 10) std::cout << figura << " pik";
 		else if (figura == 11) std::cout << "Jopek " << "pik";
 		else if (figura == 12) std::cout << "Dama " << "pik";
+		else if (figura == 13) std::cout << "Krol " << "pik";
 		else if (figura == 14) std::cout << "As " << "pik";
 	}
+	//std::cout << figura;
 }
