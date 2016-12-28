@@ -56,8 +56,9 @@ void Plansza::inicjalizuj_karty()
 	talia.clear();
 	int id = 0;
 	Karta kar;
-	for (int i = 9; i <= 14; i++)
+	for (int i = 9; i <= 13; i++) // nadanie 9, J, D, K
 	{
+		if (i == 10) continue;
 		kar.id = id;
 		kar.figura = i;
 		for (int j = 1; j <= 4; j++, id++)
@@ -67,6 +68,20 @@ void Plansza::inicjalizuj_karty()
 			kar.kolor = j;
 			talia.push_back(kar);
 		}
+	}
+	for (int j = 1; j <= 4; j++, id++) // nadanie 10
+	{
+		kar.id = id;
+		kar.figura = 10;
+		kar.kolor = j;
+		talia.push_back(kar);
+	}
+	for (int j = 1; j <= 4; j++, id++) // nadanie Asa
+	{
+		kar.id = id;
+		kar.figura = 14;
+		kar.kolor = j;
+		talia.push_back(kar);
 	}
 }
 
