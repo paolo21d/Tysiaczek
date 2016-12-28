@@ -29,6 +29,7 @@ public:
 	int wynik;
 	////////////////////////////// metody virtualne
 	virtual void wypisz_talie() = 0;
+	virtual void sortuj_karty() = 0;
 	//virtual int melduj() = 0;
 	//virtual Karta wybierz() = 0;
 	//virtual int licytuj() = 0;
@@ -38,6 +39,7 @@ class Uzytkownik : public Gracz
 {
 public:
 	void wypisz_talie();
+	void sortuj_karty();
 	//virtual int melduj();
 	//virtual Karta wybierz();
 	//virtual int licytuj();
