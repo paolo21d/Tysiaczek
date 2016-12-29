@@ -115,6 +115,9 @@ void Plansza::rozdaj()
 				gracze[2]->karty_w_rece.push_back(talia[i + 1]);
 				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
 			}
+			gracze[1]->sortuj_karty();
+			gracze[2]->sortuj_karty();
+			gracze[3]->sortuj_karty();
 		}
 		if (id_rozdajacy == 1) // nie dostaje gracz 1
 		{
@@ -124,6 +127,9 @@ void Plansza::rozdaj()
 				gracze[2]->karty_w_rece.push_back(talia[i + 1]);
 				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
 			}
+			gracze[0]->sortuj_karty();
+			gracze[2]->sortuj_karty();
+			gracze[3]->sortuj_karty();
 		}
 		if (id_rozdajacy == 2) // nie dostaje gracz 2
 		{
@@ -133,6 +139,9 @@ void Plansza::rozdaj()
 				gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 				gracze[3]->karty_w_rece.push_back(talia[i + 2]);
 			}
+			gracze[0]->sortuj_karty();
+			gracze[1]->sortuj_karty();
+			gracze[3]->sortuj_karty();
 		}
 		if (id_rozdajacy == 3) // nie dostaje gracz 3
 		{
@@ -142,6 +151,9 @@ void Plansza::rozdaj()
 				gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 				gracze[2]->karty_w_rece.push_back(talia[i + 2]);
 			}
+			gracze[0]->sortuj_karty();
+			gracze[1]->sortuj_karty();
+			gracze[2]->sortuj_karty();
 		}
 		
 	}
@@ -157,6 +169,9 @@ void Plansza::rozdaj()
 			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 			gracze[2]->karty_w_rece.push_back(talia[i + 2]);
 		}
+		gracze[0]->sortuj_karty();
+		gracze[1]->sortuj_karty();
+		gracze[2]->sortuj_karty();
 	}
 	else if (ile_graczy == 2) //2 graczy
 	{
@@ -169,12 +184,14 @@ void Plansza::rozdaj()
 			gracze[0]->karty_w_rece.push_back(talia[i]);
 			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 		}
+		gracze[0]->sortuj_karty();
+		gracze[1]->sortuj_karty();
 	}
 	///////////////////////////psuje tutaj!!!!!
-	gracze[0]->sortuj_karty();
-	gracze[1]->sortuj_karty();
-	gracze[2]->sortuj_karty();
-	gracze[3]->sortuj_karty();
+	//gracze[0]->sortuj_karty();
+	//gracze[1]->sortuj_karty();
+	//gracze[2]->sortuj_karty();
+	//gracze[3]->sortuj_karty();
 }
 
 void Plansza::wypisz_karty(std::vector <Karta> karty)

@@ -25,7 +25,7 @@ void Uzytkownik::sortuj_karty()
 				std::swap(karty_w_rece[j], karty_w_rece[j+1]);
 
 	//sortowanie w obrebie koloru
-	/*int poczatek = 0;
+	int poczatek = 0;
 	int ile;
 	for (int i = 0; i < n; i++)
 	{
@@ -39,12 +39,12 @@ void Uzytkownik::sortuj_karty()
 		}
 
 		for (int x = poczatek; x<poczatek + ile; x++) //posortowanie kart rosnaco w obrebie danego koloru
-			for (int j = poczatek + 1; j<poczatek + ile - 1; j++)
-				if (karty_w_rece[j - 1].id > karty_w_rece[j].id)
-					std::swap(karty_w_rece[j - 1], karty_w_rece[j]);
+			for (int j = poczatek ; j<poczatek + ile - 1; j++)
+				if (karty_w_rece[j].id > karty_w_rece[j+1].id)
+					std::swap(karty_w_rece[j], karty_w_rece[j+1]);
 
 		poczatek += ile;
 		i += ile;
-	}*/
+	}
 }
 
