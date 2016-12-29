@@ -170,6 +170,11 @@ void Plansza::rozdaj()
 			gracze[1]->karty_w_rece.push_back(talia[i + 1]);
 		}
 	}
+	///////////////////////////psuje tutaj!!!!!
+	gracze[0]->sortuj_karty();
+	gracze[1]->sortuj_karty();
+	gracze[2]->sortuj_karty();
+	gracze[3]->sortuj_karty();
 }
 
 void Plansza::wypisz_karty(std::vector <Karta> karty)
