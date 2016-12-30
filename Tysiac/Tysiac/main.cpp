@@ -65,7 +65,7 @@ int main()
 	std::cin >> kwota;
 	if (kwota != 0) plansza.wylicytowane = kwota;
 	//else bomba
-
+	system("cls");
 	plansza.rozegraj_partie();
 	///////////////////////////////////
 	

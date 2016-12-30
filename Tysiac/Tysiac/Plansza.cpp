@@ -200,6 +200,13 @@ void Plansza::wypisz_karty(std::vector <Karta> karty)
 	{
 		karty[i].wypisz();
 		std::cout << " | ";
+		if (i == 0)
+		{
+			HANDLE hOut;
+			hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+			SetConsoleTextAttribute(hOut, 0x0007);
+		}
 	}
 }
 
@@ -559,14 +566,28 @@ void Plansza::rozegraj_partie()
 	{	
 		for (int j = 0; j < ile_gra; j++)
 		{
+			std::cout << "GRA" << std::endl;
+			std::cout << "------------------" << std::endl;
 			if (j != 0)
 			{
-				std::cout << std::endl << "Na stole leza: ";
+				std::cout << "Na stole leza: ";
+				
+				HANDLE hOut;
+				hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+				SetConsoleTextAttribute(hOut, FOREGROUND_RED);
+				
 				wypisz_karty(wylozone);
 				std::cout << std::endl;
 			}
+			else
+			{
+				std::cout << "Zebrales w poprzedniej partii: ";
+				wypisz_karty(wylozone);
+				wylozone.erase(wylozone.begin(), wylozone.end());
+				std::cout << std::endl;
+			}
 			gracze[id_schodzacy]->wypisz_talie();
-			std::cout << std::endl << "Graczu " << id_schodzacy + 1 << " wybierz, ktora karte chcesz zagrac (wpisz jej pozycje od lewej): " << std::endl;
+			std::cout << std::endl << "Graczu " << id_schodzacy + 1 << " wybierz, ktora karte chcesz zagrac (wpisz jej pozycje od lewej): ";
 			int poz;
 			std::cin >> poz;
 			if (j == 0) sprawdz_meldunek(id_schodzacy, poz);
@@ -581,7 +602,7 @@ void Plansza::rozegraj_partie()
 
 			if (prowadzacy.second.kolor == wylozone.back().kolor)
 			{
-				if (prowadzacy.second.figura < wylozone.back().figura)
+				if (prowadzacy.second.id < wylozone.back().id)
 				{
 					prowadzacy.first = id_schodzacy;
 					prowadzacy.second = wylozone.back();
@@ -593,16 +614,20 @@ void Plansza::rozegraj_partie()
 				prowadzacy.second = wylozone.back();
 			}
 
+			if (j == ile_gra - 1)
+			{
+				std::cout << "Kolejke wygral Gracz " << prowadzacy.first + 1 << std::endl;
+				gracze[prowadzacy.first]->punkty_w_partii += podlicz_punkty(wylozone);
+				id_schodzacy = prowadzacy.first;
+				nowa_kolejka(id_schodzacy);
+				continue;
+			}
+
 			id_schodzacy++;
 			if (id_schodzacy >= ile_graczy) id_schodzacy = 0;
 			if (ile_graczy == 4 && id_schodzacy == id_rozdajacy) id_schodzacy++;
 			if (id_schodzacy >= ile_graczy) id_schodzacy = 0;
 
-			if (j == ile_gra - 1)
-			{
-				std::cout << "Kolejke wygral Gracz " << prowadzacy.first+1 << std::endl;
-				gracze[prowadzacy.first]->punkty_w_partii += podlicz_punkty(wylozone);
-			}
 
 			nowa_kolejka(id_schodzacy);
 		}
@@ -688,16 +713,7 @@ void Plansza::usun_karte(int id_gracza, Karta karta)
 void Plansza::usun_karte(int id_gracza, int poz_karty)
 {
 	std::vector <Karta> temp;
-	//if (poz_karty!=1) 
 	gracze[id_gracza]->karty_w_rece.erase(gracze[id_gracza]->karty_w_rece.begin()+poz_karty-1);
-	/*else
-	{
-		for (int i = 1; i < gracze[id_gracza]->karty_w_rece.size(); i++)
-		{
-			temp.push_back(gracze[id_gracza]->karty_w_rece[i]);
-		}
-		gracze[id_gracza]->karty_w_rece = temp;
-	}*/
 }
 
 void Plansza::oddaj_karte(int id_gracza1, int id_gracza2, Karta karta)
