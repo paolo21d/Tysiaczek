@@ -687,7 +687,17 @@ void Plansza::usun_karte(int id_gracza, Karta karta)
 
 void Plansza::usun_karte(int id_gracza, int poz_karty)
 {
-	gracze[id_gracza]->karty_w_rece.erase(gracze[id_gracza]->karty_w_rece.begin() + poz_karty-1);
+	std::vector <Karta> temp;
+	//if (poz_karty!=1) 
+	gracze[id_gracza]->karty_w_rece.erase(gracze[id_gracza]->karty_w_rece.begin()+poz_karty-1);
+	/*else
+	{
+		for (int i = 1; i < gracze[id_gracza]->karty_w_rece.size(); i++)
+		{
+			temp.push_back(gracze[id_gracza]->karty_w_rece[i]);
+		}
+		gracze[id_gracza]->karty_w_rece = temp;
+	}*/
 }
 
 void Plansza::oddaj_karte(int id_gracza1, int id_gracza2, Karta karta)
@@ -701,5 +711,5 @@ void Plansza::oddaj_karte(int id_gracza1, int id_gracza2, int poz_karty)
 	Karta karta = gracze[id_gracza1]->karty_w_rece[poz_karty - 1];
 	
 	dodaj_karte(id_gracza2, karta);
-	usun_karte(id_gracza1, poz_karty-1);
+	usun_karte(id_gracza1, poz_karty);
 }
