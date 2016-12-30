@@ -537,12 +537,26 @@ void Plansza::rozegraj_partie()
 	else ile_kolejek = 8;
 
 	int ile_gra = ile_graczy;
-	if (ile_graczy == 4) ile_gra--;
+	if (ile_graczy == 4)
+	{
+		ile_gra--;
+		for (int i = 0; i < musik.size(); i++)
+		{
+			if (musik[i].figura == 14) gracze[id_rozdajacy]->wynik += 50;
+			if (musik[i].figura == 12)
+			{
+				for (int j = 0; j < musik.size(); j++)
+				{
+					if (musik[j].id == musik[i].id + 1) gracze[id_rozdajacy]->wynik += 120 - 20 * musik[j].kolor;
+				}
+			}
+		}
+	}
 
 	int id_schodzacy = id_grajacy;
 
 	for (int i = 0; i < ile_kolejek; i++)
-	{
+	{	
 		for (int j = 0; j < ile_gra; j++)
 		{
 			if (j != 0)
@@ -593,6 +607,15 @@ void Plansza::rozegraj_partie()
 			nowa_kolejka(id_schodzacy);
 		}
 	}
+
+	
+	for (int i = 0; i < ile_graczy; i++)
+	{
+		if (gracze[i]->wynik<900 || i==id_grajacy) gracze[i]->wynik += gracze[i]->punkty_w_partii;
+		gracze[i]->punkty_w_partii = 0;
+	}
+
+
 }
 
 

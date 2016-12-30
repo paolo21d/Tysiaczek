@@ -36,6 +36,7 @@ int main()
 	plansza.wypisz_karty_gracza(plansza.id_grajacy);
 	std::cout << std::endl << "Graczu " << plansza.id_grajacy + 1 << " wybierz, ktore karty chcesz przekazac poszczegolnym Graczom (wpisz jej pozycje od lewej)" << std::endl;
 	
+	std::vector <int> id_oddane;
 	for(int i = 0; i < plansza.get_ilosc_graczy(); i++)
 	{
 		if (i != plansza.id_grajacy)
@@ -46,6 +47,11 @@ int main()
 				int do_oddania = 0;
 				std::cout << "Dla Gracza " << i + 1 << " : ";
 				std::cin >> do_oddania;
+				for (int j = 0; j < id_oddane.size(); j++)
+				{
+					if (do_oddania > id_oddane[j]) do_oddania++;
+				}
+				id_oddane.push_back(do_oddania);
 				plansza.oddaj_karte(plansza.id_grajacy, i, do_oddania);
 			}
 		}
