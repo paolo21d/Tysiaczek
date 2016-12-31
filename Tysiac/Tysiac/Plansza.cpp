@@ -414,6 +414,8 @@ void Plansza::nowa_gra()
 {
 	std::cout << "Podaj liczbe graczy (od 2 do 4): ";
 	std::cin >> ile_graczy;
+	for (int i = 0; i < ile_graczy; i++) punkty_gracza.push_back(0);
+
 	std::cout << "Dla kazdego gracza podaj czy ma byc sterowany przez uzytkownika czy komputer (wpisz 'U' lub 'K')" << std::endl;
 	char wybor;
 
@@ -636,11 +638,21 @@ void Plansza::rozegraj_partie()
 	
 	for (int i = 0; i < ile_graczy; i++)
 	{
-		if (gracze[i]->wynik<900 || i==id_grajacy) gracze[i]->wynik += gracze[i]->punkty_w_partii;
+		gracze[i]->punkty_w_partii += 5;
+		gracze[i]->punkty_w_partii /= 10;
+		gracze[i]->punkty_w_partii *= 10;
+
+		if (i == id_grajacy)
+		{
+			if (gracze[i]->punkty_w_partii < wylicytowane) gracze[i]->punkty_w_partii = - wylicytowane;
+			gracze[i]->wynik += gracze[i]->punkty_w_partii;
+		}
+		else if (gracze[i]->wynik<900) gracze[i]->wynik += gracze[i]->punkty_w_partii;
 		gracze[i]->punkty_w_partii = 0;
+		punkty_gracza[i] = gracze[i]->wynik;
 	}
 
-
+	system ("cls");
 }
 
 

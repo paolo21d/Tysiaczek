@@ -73,6 +73,7 @@ private:
 	std::fstream plik;
 public:
 	std::vector <Karta> talia; // talia generowana - z niej sa wybierane karty do pozniejszych rozdan
+	std::vector <int> punkty_gracza;
 	int id_grajacy;
 	int wylicytowane;
 	void inicjalizuj_karty();
