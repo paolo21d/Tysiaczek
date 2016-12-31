@@ -689,6 +689,7 @@ void Plansza::wypisz_karty_gracza(int id_gracza)
 void Plansza::dodaj_karte(int id_gracza, Karta karta)
 {
 	gracze[id_gracza]->karty_w_rece.push_back(karta);
+	gracze[id_gracza]->sortuj_karty();
 }
 
 void Plansza::dodaj_karte(int id_gracza, std::vector <Karta> karty)
@@ -697,6 +698,8 @@ void Plansza::dodaj_karte(int id_gracza, std::vector <Karta> karty)
 	{
 		gracze[id_gracza]->karty_w_rece.push_back(karty[i]);
 	}
+
+	gracze[id_gracza]->sortuj_karty();
 }
 
 void Plansza::usun_karte(int id_gracza, Karta karta)
