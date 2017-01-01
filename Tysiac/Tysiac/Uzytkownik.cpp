@@ -23,9 +23,45 @@ void Uzytkownik::sortuj_karty()
 		for (int j = 0; j < n-1; j++)
 			if (karty_w_rece[j].kolor > karty_w_rece[j+1].kolor)
 				std::swap(karty_w_rece[j], karty_w_rece[j+1]);
-
+	
 	//sortowanie w obrebie koloru
-	int poczatek = 0;
+	int s=0, d=0, z=0, w=0;
+	for (int i = 0; i < n; i++)//zliczenie ile kart jest ka¿dego koloru
+	{
+		if (karty_w_rece[i].kolor == 1) s++;
+		else if (karty_w_rece[i].kolor == 2) d++;
+		else if (karty_w_rece[i].kolor == 3) z++;
+		else if (karty_w_rece[i].kolor == 4) w++;
+	}
+
+	int start, stop;
+	start = 0;
+	stop = s;
+	for (int i = start; i < stop; i++)//sortowanie kier
+		for (int j = start; j < stop - 1; j++)
+			if (karty_w_rece[j].id > karty_w_rece[j + 1].id)
+				std::swap(karty_w_rece[j], karty_w_rece[j + 1]);
+	start = stop;
+	stop += d;
+	for (int i = start; i < stop; i++)//sortowanie karo
+		for (int j = start; j < stop - 1; j++)
+			if (karty_w_rece[j].id > karty_w_rece[j + 1].id)
+				std::swap(karty_w_rece[j], karty_w_rece[j + 1]);
+	start = stop;
+	stop += z;
+	for (int i = start; i < stop; i++)//sortowanie trefl
+		for (int j = start; j < stop - 1; j++)
+			if (karty_w_rece[j].id > karty_w_rece[j + 1].id)
+				std::swap(karty_w_rece[j], karty_w_rece[j + 1]);
+	start = stop;
+	stop += w;
+	for (int i = start; i < stop; i++)//sortowanie pik
+		for (int j = start; j < stop - 1; j++)
+			if (karty_w_rece[j].id > karty_w_rece[j + 1].id)
+				std::swap(karty_w_rece[j], karty_w_rece[j + 1]);
+
+	//sortowanie w obrebie koloru ------- coœ to nie dzia³a³o
+	/*int poczatek = 0;
 	int ile;
 	for (int i = 0; i < n; i++)
 	{
@@ -45,6 +81,6 @@ void Uzytkownik::sortuj_karty()
 
 		poczatek += ile;
 		i += ile;
-	}
+	}*/
 }
 
